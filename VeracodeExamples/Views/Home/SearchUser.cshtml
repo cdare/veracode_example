@@ -24,7 +24,7 @@
 
     <h1>Search result for user: @Model.UserId</h1>
 
-    <ul id="@Html.Raw(ulId)">
+    <ul id="ul-id@(Model.UserId)">
 
         <li>@Model.FirstName</li>
 
@@ -32,7 +32,7 @@
 
         <li>@Model.Email</li>
 
-        <li>@Html.Raw(Model.Signature)</li>
+        <li>@Html.Raw(Microsoft.Security.Application.Sanitizer.GetSafeHtmlFragment(Model.Signature))</li>
 
     </ul>
 
@@ -98,19 +98,19 @@
 
  $('#ajax-search').append('<hr/>');
 
- $('#ajax-search').append(obj.result.userId);
+ $('#ajax-search').append($("<div/>").text(obj.result.userId).html());
 
  $('#ajax-search').append('<hr/>');
 
- $('#ajax-search').append(obj.result.FirstName);
+ $('#ajax-search').append($("<div/>").text(obj.result.FirstName).html());
 
  $('#ajax-search').append('<hr/>');
 
- $('#ajax-search').append(obj.result.LastName);
+ $('#ajax-search').append($("<div/>").text(obj.result.LastName).html());
 
  $('#ajax-search').append('<hr/>');
 
- $('#ajax-search').append(obj.result.Signature);
+ $('#ajax-search').append($("<div/>").text(obj.result.Signature).html());
 
  $('#ajax-search').append('<hr/>');
 

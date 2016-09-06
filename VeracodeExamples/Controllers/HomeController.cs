@@ -26,12 +26,10 @@ namespace VeracodeExamples.Controllers
         public ActionResult SearchUserAjax(String userid)
         {
             UserModel myUser = fetchUserFromLdap(userid);
-            return Content("{\"message\": \"search for userId: " + userid + "result\", \"result\": " + convertToJson(myUser) + " }");
-        }
-
-        private string convertToJson(UserModel myUser)
-        {
-            return "{ \"userId\": \"" + myUser.UserId + "\", \"FirstName\":\"" + myUser.FirstName + "\", \"LastName\": \"" + myUser.LastName + "\", \"Email\":\"" + myUser.Email + "\", \"Signature\": \"" + myUser.Signature + "\"}";
+            UserViewModel model = new UserViewModel();
+            model.UserId = userid;
+            model.user = myUser;
+            return PartialView(model);
         }
 
         private UserModel fetchUserFromLdap(string userId)
