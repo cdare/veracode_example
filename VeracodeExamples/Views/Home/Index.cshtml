@@ -1,0 +1,12 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<div class="row">
+    <div class="col-md-4">
+        <h2>POCs</h2>
+        <ul>
+            <li>@Html.ActionLink("XSS 1", "SearchUserAjax", "Home", new { userid = 2 }, null)</li>
+        </ul>
+        <div><h5>User Details</h5><p id="user_details"></p></div>
+    </div>
+</div>

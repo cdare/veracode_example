@@ -1,0 +1,125 @@
+﻿@model VeracodeExamples.Models.UserModel
+
+@{
+
+    ViewBag.Title = "Search result for user: " + Model.UserId;
+
+    var ulId = "ul-id" + Model.UserId;
+
+    var formId = "form" + Model.UserId;
+
+}
+
+<html>
+
+<head>
+
+    @Scripts.Render("~/bundles/jquery")
+
+    @Scripts.Render("~/bundles/bootstrap")
+
+</head>
+
+<body>
+
+    <h1>Search result for user: @Model.UserId</h1>
+
+    <ul id="@Html.Raw(ulId)">
+
+        <li>@Model.FirstName</li>
+
+        <li>@Model.LastName</li>
+
+        <li>@Model.Email</li>
+
+        <li>@Html.Raw(Model.Signature)</li>
+
+    </ul>
+
+    <form id=@formId name=@formId action=/Home/SearchUser enctype="multipart/form-data">
+
+        <input type="text" name="userId" />
+
+        <input type="submit" />
+
+    </form>
+
+    <script type="text/javascript">
+
+ var theForm = document.@formId;
+
+ $(theForm).submit(function() {
+
+ alert('your form is valid!');
+
+ return true;
+
+ });
+
+ // just to demonstrate potential usage $(theForm).submit();
+
+    </script>
+
+    <div>
+
+        Ajax search:
+
+        <form id="ajax-search" name="ajax-search">
+
+            <input type="text" name="userId" />
+
+            <input type="submit" />
+
+        </form>
+
+        <script>
+
+ $("#ajax-search").submit(function() {
+
+ var url = "/Home/SearchUserAjax"; // the script where you handle theform input.
+
+ $.ajax({
+
+ type: "POST",
+
+ url: url,
+
+ data: $("#ajax-search").serialize(), // serializes the form's elements.
+
+ success: function(data)
+
+ {
+
+ var obj = JSON.parse(data);
+
+ $('#ajax-search').append('<hr/>');
+
+ $('#ajax-search').append(obj.message); // show response from the php script.
+
+ $('#ajax-search').append('<hr/>');
+
+ $('#ajax-search').append(obj.result.userId);
+
+ $('#ajax-search').append('<hr/>');
+
+ $('#ajax-search').append(obj.result.FirstName);
+
+ $('#ajax-search').append('<hr/>');
+
+ $('#ajax-search').append(obj.result.LastName);
+
+ $('#ajax-search').append('<hr/>');
+
+ $('#ajax-search').append(obj.result.Signature);
+
+ $('#ajax-search').append('<hr/>');
+
+ }
+
+ });
+
+ return false; // avoid to execute the actual submit of the form.
+
+ });
+
+        </script>
